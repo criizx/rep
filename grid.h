@@ -8,4 +8,7 @@ class Grid {
 
    public:
 	Grid();
+	void initialize();
+	void print();
+	int grid[20][10];
 };
