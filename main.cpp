@@ -9,12 +9,13 @@ int main() {
 	std::cout << "starting" << std::endl;
 	const int screenHeight = 1030, screenWidth = 1920;
 	InitWindow(screenWidth, screenHeight, "tetris");
-	Grid grid;
+	Grid grid = Grid();
+	grid.print();
 	SetTargetFPS(60);
 	while (!WindowShouldClose()) {
 		BeginDrawing();
 		ClearBackground(darkBlue);
-		grid.initialize();
+		grid.Draw();
 		EndDrawing();
 	}
 	CloseWindow();
