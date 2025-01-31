@@ -3,14 +3,13 @@
 
 #include <vector>
 
-// L-block J-block I-block O-block S-block T-block Z-block
-
 class Grid {
    private:
 	int num_rows;
 	int num_colomns;
 	int cell_size;
 	std::vector<Color> colors;
+	int start_x, start_y;
 
    public:
 	Grid();
@@ -18,4 +17,6 @@ class Grid {
 	void print();
 	int grid[20][10];
 	void Draw();
+	int GetStartX() const { return start_x; }
+	int GetStartY() const { return start_y; }
 };
