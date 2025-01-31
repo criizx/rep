@@ -1,11 +1,14 @@
 #include <raylib.h>
 
+#include <cstdlib>
+#include <ctime>
 #include <random>
 
 #include "block.h"
 #include "game.h"
 
 Game::Game() {
+	srand(time(0));
 	grid = Grid();
 	blocks = get_all_blocks();
 	current_block = get_random_block();
