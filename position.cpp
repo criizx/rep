@@ -2,5 +2,5 @@
 
 Position::Position(int row, int colomn) {
 	this->row = row;
-	this->colomn = colomn;
+	this->column = colomn;
 }

@@ -6,6 +6,7 @@
 
 #include "block.h"
 #include "game.h"
+#include "position.h"
 
 Game::Game() {
 	srand(time(0));
@@ -52,6 +53,31 @@ void Game::handle_input() {
 	}
 }
 
-void Game::move_block_left() { current_block.Move(0, -1); }
-void Game::move_block_right() { current_block.Move(0, 1); }
-void Game::move_block_down() { current_block.Move(1, 0); }
+void Game::move_block_left() {
+	current_block.Move(0, -1);
+	if (is_block_outside()) {
+		current_block.Move(0, 1);
+	}
+}
+void Game::move_block_right() {
+	current_block.Move(0, 1);
+	if (is_block_outside()) {
+		current_block.Move(0, -1);
+	}
+}
+void Game::move_block_down() {
+	current_block.Move(1, 0);
+	if (is_block_outside()) {
+		current_block.Move(-1, 0);
+	}
+}
+
+bool Game::is_block_outside() {
+	std::vector<Position> tiles = current_block.get_cell_positions();
+	for (Position item : tiles) {
+		if (grid.is_cell_outside(item.row, item.column)) {
+			return true;
+		}
+	}
+	return false;
+}

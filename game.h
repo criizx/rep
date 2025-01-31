@@ -15,6 +15,7 @@ class Game {
 	void move_block_down();
 
    private:
+	bool is_block_outside();
 	std::vector<Block> blocks;
 	Block current_block;
 	Block next_block;
