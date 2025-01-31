@@ -13,7 +13,9 @@ class Block {
 	Block();
 	void Draw();
 	void SetGridOffset(int grid_start_x, int grid_start_y);
+	void Move(int rows, int columns);
 	std::map<int, std::vector<Position>> cells;
+	std::vector<Position> get_cell_positions();
 
    private:
 	int cell_size;
@@ -21,4 +23,6 @@ class Block {
 	std::vector<Color> colors;
 	int grid_start_x;
 	int grid_start_y;
+	int row_offset;
+	int column_offset;
 };

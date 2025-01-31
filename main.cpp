@@ -2,26 +2,21 @@
 
 #include <iostream>
 
-#include "blocks.cpp"
-#include "grid.h"
+#include "game.h"
 
 BlockL block = BlockL();
 int main() {
 	Color darkBlue = {44, 44, 127, 255};
-	std::cout << "starting" << std::endl;
 	const int screenHeight = 1030, screenWidth = 1920;
 	InitWindow(screenWidth, screenHeight, "tetris");
-
-	Grid grid = Grid();
-	block.SetGridOffset(grid.GetStartX(), grid.GetStartY());
-
-	grid.print();
 	SetTargetFPS(60);
+
+	Game game = Game();
 	while (!WindowShouldClose()) {
+		game.handle_input();
 		BeginDrawing();
 		ClearBackground(darkBlue);
-		grid.Draw();
-		block.Draw();
+		game.Draw();
 		EndDrawing();
 	}
 	CloseWindow();
