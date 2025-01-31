@@ -18,5 +18,4 @@ class Grid {
 	void print();
 	int grid[20][10];
 	void Draw();
-	std::vector<Color> get_cell_colors();
 };

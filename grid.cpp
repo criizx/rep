@@ -3,6 +3,7 @@
 #include <iostream>
 #include <vector>
 
+#include "colors.h"
 #include "grid.h"
 
 Grid::Grid() {
@@ -29,18 +30,6 @@ void Grid::print() {
 		}
 		std::cout << std::endl;
 	}
-}
-
-std::vector<Color> Grid::get_cell_colors() {
-	Color darkGrey = {127, 127, 127, 255};
-	Color cyan = {0, 255, 255, 255};
-	Color yellow = {255, 255, 0, 255};
-	Color purple = {128, 0, 128, 255};
-	Color orange = {255, 127, 0, 255};
-	Color green = {0, 255, 0, 255};
-	Color red = {255, 0, 0, 255};
-	Color blue = {0, 0, 255, 255};
-	return {darkGrey, cyan, yellow, purple, orange, green, red, blue};
 }
 
 void Grid::Draw() {
