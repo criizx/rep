@@ -20,4 +20,5 @@ class Grid {
 	bool is_cell_outside(int row, int column);
 	int GetStartX() const { return start_x; }
 	int GetStartY() const { return start_y; }
+	bool is_cell_empty(int row, int column);
 };

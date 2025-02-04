@@ -18,6 +18,7 @@ class Block {
 	void undo_rotation();
 	std::map<int, std::vector<Position>> cells;
 	std::vector<Position> get_cell_positions();
+	int Get_cell_size() { return this->cell_size; }
 
    private:
 	int cell_size;

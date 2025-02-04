@@ -20,4 +20,7 @@ class Game {
 	std::vector<Block> blocks;
 	Block current_block;
 	Block next_block;
+	bool block_fits();
+	void draw_next_block();
+	void lock_block();
 };
