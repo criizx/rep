@@ -15,7 +15,7 @@ Game::Game() {
 	current_block = get_random_block();
 	next_block = get_random_block();
 
-	current_block.SetGridOffset(grid.GetStartX(), grid.GetStartY());
+	current_block.Set_grid_offset(grid.GetStartX(), grid.GetStartY());
 }
 
 Block Game::get_random_block() {
@@ -50,6 +50,9 @@ void Game::handle_input() {
 		case KEY_DOWN:
 			move_block_down();
 			break;
+		case KEY_UP:
+			rotate_block();
+			break;
 	}
 }
 
@@ -69,6 +72,13 @@ void Game::move_block_down() {
 	current_block.Move(1, 0);
 	if (is_block_outside()) {
 		current_block.Move(-1, 0);
+	}
+}
+
+void Game::rotate_block() {
+	current_block.rotate();
+	if (is_block_outside()) {
+		current_block.undo_rotation();
 	}
 }
 

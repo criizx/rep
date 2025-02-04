@@ -12,8 +12,10 @@ class Block {
 	int id;
 	Block();
 	void Draw();
-	void SetGridOffset(int grid_start_x, int grid_start_y);
+	void Set_grid_offset(int grid_start_x, int grid_start_y);
 	void Move(int rows, int columns);
+	void rotate();
+	void undo_rotation();
 	std::map<int, std::vector<Position>> cells;
 	std::vector<Position> get_cell_positions();
 

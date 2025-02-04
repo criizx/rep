@@ -16,7 +16,7 @@ Block::Block() {
 	column_offset = 0;
 }
 
-void Block::SetGridOffset(int grid_start_x, int grid_start_y) {
+void Block::Set_grid_offset(int grid_start_x, int grid_start_y) {
 	this->grid_start_x = grid_start_x;
 	this->grid_start_y = grid_start_y;
 }
@@ -33,6 +33,16 @@ void Block::Move(int rows, int columns) {
 	row_offset += rows;
 	column_offset += columns;
 }
+
+void Block::rotate() { rotation_state = (rotation_state + 1) % (int)cells.size(); }
+
+void Block::undo_rotation() {
+	rotation_state--;
+	if (rotation_state == -1) {
+		rotation_state = cells.size() - 1;
+	}
+}
+
 std::vector<Position> Block::get_cell_positions() {
 	std::vector<Position> tiles = cells[rotation_state];
 	std::vector<Position> moved_tiles;
