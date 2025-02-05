@@ -17,7 +17,7 @@ bool EventTriggered(double interval) {
 
 BlockL block = BlockL();
 int main() {
-	Color darkBlue = {44, 44, 127, 255};
+	Color darkBlue = {44, 44, 127, 255};  //цвет фона
 	const int screenHeight = 1030, screenWidth = 1920;
 	InitWindow(screenWidth, screenHeight, "tetris");
 	SetTargetFPS(60);
@@ -25,7 +25,7 @@ int main() {
 	Game game = Game();
 	while (!WindowShouldClose()) {
 		game.handle_input();
-		if (EventTriggered(0.5)) {
+		if (EventTriggered(0.2)) {
 			game.move_block_down();
 		}
 		BeginDrawing();

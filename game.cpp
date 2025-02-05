@@ -15,6 +15,8 @@ Game::Game() {
 	blocks = get_all_blocks();
 	current_block = get_random_block();
 	next_block = get_random_block();
+	game_over = false;
+	font = LoadFontEx("fonts/Minecrafter-MA3Dw.ttf", 256, 0, 0);
 }
 
 Block Game::get_random_block() {
@@ -38,11 +40,17 @@ void Game::Draw() {
 	              grid.GetStartY() + current_block.Get_cell_size() * 4, current_block.Get_cell_size() * 5,
 	              current_block.Get_cell_size() * 5, GRAY);
 	draw_next_block();
-	current_block.Draw();
+	if (!game_over) {
+		current_block.Draw();
+	}
 }
 
 void Game::handle_input() {
 	int key_pressed = GetKeyPressed();
+	if (game_over && key_pressed == 0) {
+		game_over = false;
+		Reset();
+	}
 	switch (key_pressed) {
 		case KEY_LEFT:
 			move_block_left();
@@ -60,29 +68,39 @@ void Game::handle_input() {
 }
 
 void Game::move_block_left() {
-	current_block.Move(0, -1);
-	if (is_block_outside() || !block_fits()) {
-		current_block.Move(0, 1);
-	}
-}
-void Game::move_block_right() {
-	current_block.Move(0, 1);
-	if (is_block_outside() || !block_fits()) {
+	if (!game_over) {
 		current_block.Move(0, -1);
+		if (is_block_outside() || !block_fits()) {
+			current_block.Move(0, 1);
+		}
 	}
 }
+
+void Game::move_block_right() {
+	if (!game_over) {
+		current_block.Move(0, 1);
+		if (is_block_outside() || !block_fits()) {
+			current_block.Move(0, -1);
+		}
+	}
+}
+
 void Game::move_block_down() {
-	current_block.Move(1, 0);
-	if (is_block_outside() || !block_fits()) {
-		current_block.Move(-1, 0);
-		lock_block();
+	if (!game_over) {
+		current_block.Move(1, 0);
+		if (is_block_outside() || !block_fits()) {
+			current_block.Move(-1, 0);
+			lock_block();
+		}
 	}
 }
 
 void Game::rotate_block() {
-	current_block.rotate();
-	if (is_block_outside() || !block_fits()) {
-		current_block.undo_rotation();
+	if (!game_over) {
+		current_block.rotate();
+		if (is_block_outside() || !block_fits()) {
+			current_block.undo_rotation();
+		}
 	}
 }
 
@@ -102,7 +120,12 @@ void Game::lock_block() {
 		grid.grid[item.row][item.column] = current_block.id;
 	}
 	current_block = next_block;
+	if (!block_fits()) {
+		game_over = true;
+		return;
+	}
 	next_block = get_random_block();
+	grid.clear_full_rows();
 }
 
 bool Game::block_fits() {
@@ -119,4 +142,25 @@ void Game::draw_next_block() {
 	Block block_for_hint = next_block;
 	block_for_hint.Move(6, 13);
 	block_for_hint.Draw();
+}
+
+void Game::Reset() {
+	Vector2 textSize = MeasureTextEx(font, "COCAT", 256, 64);
+	Vector2 textPosition = {GetScreenWidth() / 2 - textSize.x / 2, GetScreenHeight() / 2 - textSize.y / 2};
+
+	float displayTime = 5.0f;
+
+	while (displayTime > 0) {
+		BeginDrawing();
+		ClearBackground(BLACK);
+		DrawTextEx(font, "COCAT", textPosition, 256, 64, WHITE);
+		EndDrawing();
+		displayTime -= GetFrameTime();
+	}
+
+	grid.initialize();
+	blocks = get_all_blocks();
+	current_block = get_random_block();
+	next_block = get_random_block();
+	game_over = false;
 }

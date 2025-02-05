@@ -57,3 +57,38 @@ bool Grid::is_cell_empty(int row, int column) {
 	bool result = grid[row][column] == 0 ? true : false;
 	return result;
 }
+
+bool Grid::is_row_full(int row) {
+	for (int column = 0; column < num_colomns; column++) {
+		if (grid[row][column] == 0) {
+			return false;
+		}
+	}
+	return true;
+}
+
+void Grid::clear_row(int row) {
+	for (int column = 0; column < num_colomns; column++) {
+		grid[row][column] = 0;
+	}
+}
+
+void Grid::move_row_down(int row, int num_rows) {
+	for (int column = 0; column < num_colomns; column++) {
+		grid[row + num_rows][column] = grid[row][column];
+		grid[row][column] = 0;
+	}
+}
+
+int Grid::clear_full_rows() {
+	int completed = 0;
+	for (int row = num_rows - 1; row >= 0; row--) {
+		if (is_row_full(row)) {
+			clear_row(row);
+			completed++;
+		} else if (completed > 0) {
+			move_row_down(row, completed);
+		}
+	}
+	return completed;
+}
